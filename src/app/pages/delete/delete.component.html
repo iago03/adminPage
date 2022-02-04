@@ -1,0 +1,22 @@
+<main>
+    <div class="form-group">
+        <label for="name">პროდუქტის სახელი</label>
+        <input
+        [ngClass]="{'red':itemNameStatus}" 
+        [(ngModel)]="itemName"
+        type="text" class="form-control" id="name">
+    </div>
+
+    <button
+    (click)="render()"
+    type="button" class="btn btn-outline-primary">მოძებნა</button>
+
+    <section
+    *ngIf="itemInfoAreaStatus"
+    class="card-area">
+        <app-card
+        *ngFor="let item of delateItemsArr" [img]="item"
+        ></app-card>
+    </section>
+    
+</main>

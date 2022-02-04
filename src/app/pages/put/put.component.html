@@ -1,0 +1,34 @@
+<main>
+    <div class="form-group">
+        <label for="name">პროდუქტის სახელი</label>
+        <input
+        [ngClass]="{'red':itemNameStatus}" 
+        [(ngModel)]="itemName"
+        type="text" class="form-control" id="name">
+    </div>
+
+    <button
+    (click)="render()"
+    type="button" class="btn btn-outline-primary">მოძებნა</button>
+
+    <section class="card-area">
+        <app-item-info-component
+        *ngIf="itemInfoAreaStatus"
+        [itemInfo]="putRequestItemInfo"
+        [itemInfoInputStatus]="inputStatus"
+        ></app-item-info-component>
+
+        <article class="button-area">
+            <button
+            (click)="changeInputStatus()"
+            *ngIf="itemInfoAreaStatus"
+            type="button" class="btn btn-outline-warning">შეცვლა</button>
+    
+            <button
+            (click)="putRequest()"
+            *ngIf="itemInfoAreaStatus"
+            type="button" class="btn btn-outline-success">შენახვა</button>
+        </article>
+    </section>
+    
+</main>

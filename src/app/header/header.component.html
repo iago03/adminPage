@@ -1,0 +1,43 @@
+
+<header
+    [ngClass]="{'header-active':activeProperti}"
+>
+    <nav>
+        <div class="logo">
+            <h1>ნატალი</h1>
+        </div>
+        <ul
+        [ngClass]="{'ul-active':activeProperti}"
+        >
+            <li
+            (click)="changeActive()"
+            >
+                <a 
+                routerLink="/"
+                routerLinkActive='active'
+                [routerLinkActiveOptions]="{exact:true}"
+                >დამატება</a></li>
+            <li
+            (click)="changeActive()"
+            >
+                <a 
+                routerLink='put'
+                routerLinkActive='active'
+                >შეცვლა</a></li>
+            <li
+            (click)="changeActive()"
+            >
+                <a 
+                routerLink='delete'
+                routerLinkActive='active'
+                >წაშლა</a></li>
+        </ul>
+
+        <div
+        (click)="changeActive()"
+        [ngClass]="{'active': activeProperti}"
+        class="menu-btn">
+            <div class="burger-button"></div>
+        </div>
+    </nav>
+</header>

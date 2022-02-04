@@ -1,0 +1,32 @@
+.login{
+    width: 60%;
+    position: absolute;
+    top: 25%;
+    left: 0;
+    right: 0;
+    margin: 0px auto;
+    padding: 50px;
+    border: 1px solid #c7c7c7;
+    border-radius: 20px;
+    box-shadow: 10px 10px 15px #c7c7c7;
+}
+
+.login input{
+    margin: 10px 0px 20px;
+}
+
+.login button{
+    display: block;
+    margin: 0px auto;
+}
+
+.error{
+    color: red;
+}
+
+@media screen and (max-width:800px){
+    .login{
+        width: 90%;
+        padding: 50px 25px;
+    }
+}

@@ -1,0 +1,88 @@
+<section>
+        <article class="content">
+            <aside class="left">
+                <div class="img">
+                    <img [src]="itemInfo.ImgUrl" alt="">
+                </div>
+
+                <div
+                *ngIf="itemInfoInputStatus"
+                class="form-group">
+                    <label for="exampleFormControlFile1">პროდუქტის სურათი</label>
+                    <p [innerHtml]='msg' *ngIf="msg" style="color: red;"></p>
+                    <input type="file" (change)="selectFile($event)">
+                </div>
+
+                <p>იგზვნება საქართველოს მასშტაბით, ასევე საზღვარგარეთ!
+                    საკურიერიერო სერვისი - 5ლ.</p>
+            </aside>
+            <aside class="right">
+                <h4
+                *ngIf="!itemInfoInputStatus"
+                >{{itemInfo.Name}}</h4>
+                
+                <div
+                *ngIf="itemInfoInputStatus"
+                class="form-group">
+                    <label for="name">პროდუქტის სახელი</label>              
+                    <input 
+                    [(ngModel)]="itemInfo.Name"
+                    type="text" class="form-control" id="name">
+                </div>
+
+                <h3
+                *ngIf="!itemInfoInputStatus"
+                >{{itemInfo.Price}}</h3>
+
+                <div 
+                *ngIf="itemInfoInputStatus"
+                class="form-group">
+                    <label for="price">პროდუქტის ფასი</label>
+                    <input 
+                    [(ngModel)]="itemInfo.Price"
+                    type="text" class="form-control" id="price">
+                </div>
+
+                <div class="drop-down-info first">
+                    <h5 (click)="dropDownFirst()">საცხის შესახებ:
+                        <span [ngClass]="{'plus':!firstDropDown}"></span>
+                        <span></span>
+                    </h5>
+                    <p 
+                    *ngIf="firstDropDown && !itemInfoInputStatus"
+                    >{{itemInfo.Description}}</p>
+
+                    <div 
+                    *ngIf="firstDropDown && itemInfoInputStatus"
+                    class="form-group">
+                        <label for="exampleFormControlTextarea1">ინფორმაცია პროდუქტზე</label>
+                        <textarea 
+                        [(ngModel)]="itemInfo.Description"
+                        class="form-control" id="exampleFormControlTextarea1"></textarea>
+                    </div>
+
+                </div>
+
+                <div class="drop-down-info">
+                    <h5
+                    (click) = "dropDownSecond()"
+                    >გამოყენების წესი:
+                        <span [ngClass]="{'plus':!secondDropDown}"></span>
+                        <span></span>
+                    </h5>
+                    <p
+                    *ngIf="secondDropDown && !itemInfoInputStatus"
+                    >{{itemInfo.Used}}</p>
+
+                    <div 
+                    *ngIf="secondDropDown && itemInfoInputStatus"
+                    class="form-group">
+                        <label for="exampleFormControlTextarea1">პროდუქტის გამოყენება</label>
+                        <textarea
+                        [(ngModel)]="itemInfo.Used"
+                        class="form-control" id="exampleFormControlTextarea1"></textarea>
+                    </div>
+                </div>
+            </aside>
+        </article>
+    </section>

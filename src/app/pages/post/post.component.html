@@ -1,0 +1,48 @@
+<main>
+    <section class="form">
+        <h1>პროდუქტის დამატება</h1>
+        <div class="form-group">
+            <label for="name">პროდუქტის სახელი</label>
+            <input 
+            [(ngModel)]="item.Name"
+            type="text" class="form-control" id="name">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlFile1">პროდუქტის სურათი</label>
+            <p [innerHtml]='msg' *ngIf="msg" style="color: red;"></p>
+            <input type="file" (change)="selectFile($event)">
+        </div>
+        <div class="form-group">
+            <label for="price">პროდუქტის ფასი</label>
+            <input 
+            [(ngModel)]="item.Price"
+            type="text" class="form-control" id="price">
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">ინფორმაცია პროდუქტზე</label>
+            <textarea 
+            [(ngModel)]="item.Description"
+            class="form-control" id="exampleFormControlTextarea1"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">პროდუქტის გამოყენება</label>
+            <textarea
+            [(ngModel)]="item.Used"
+            class="form-control" id="exampleFormControlTextarea1"></textarea>
+        </div>
+
+        <button
+        (click)="render()"
+        type="button" class="btn btn-outline-primary">შემოწმება</button>
+    </section>
+    <section class="card-info-area">
+        <app-item-info-component
+        *ngIf="itemInfoAreaStatus"
+        [itemInfo]="itemRenderer"></app-item-info-component>
+    </section>
+
+    <button
+    (click)="postRequest()"
+    *ngIf="itemInfoAreaStatus"
+    type="button" class="btn btn-outline-success">დამატება</button>
+</main>

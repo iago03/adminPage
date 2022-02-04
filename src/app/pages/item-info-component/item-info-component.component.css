@@ -1,0 +1,106 @@
+section{
+    padding-top: 100px;
+    margin: 0px auto;
+}
+
+section{
+    padding-top: 150px;
+}
+
+section p{
+    margin: 0px;
+    color: rgb(81, 64, 65);
+}
+
+section .content{
+    display: flex;
+    justify-content: space-between;
+    padding-top: 40px;
+}
+
+section .content .left{
+    width: 50%;
+}
+
+section .content .left .img{
+    margin-bottom: 30px;
+    box-shadow: 5px 4px 13px #a59f9f;
+    border-radius: 15px;
+}
+
+section .content .right{
+    width: 45%;
+}
+
+
+section .content .right h4{
+    margin-bottom: 20px;
+}
+
+section .content .right h3{
+    font-size: 18px;
+    margin-bottom: 30px;
+}
+
+section .content .right .drop-down-info{
+    padding-top: 20px;
+}
+
+section .content .right .first{
+    padding: 0px 0px 20px;
+    border-bottom: 1px solid rgb(81, 64, 65);
+}
+
+section .content .right h5{
+    position: relative;
+    font-size: 17px;
+    margin-bottom: 20px;
+    color: rgb(81, 64, 65);
+    cursor: pointer;
+}
+
+section .content .right span{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 20px;
+    height: 2px;
+    background-color: black;
+}
+
+section .content .right .plus{
+    transform: rotate(90deg);
+}
+
+/* inputs style */
+
+
+input{
+    margin: 10px 0px 20px;
+}
+
+textarea{
+    height: 110px;
+    resize: none;
+    margin: 10px 0px 20px;
+}
+
+/* input Style */
+
+/* respons */
+@media screen and (max-width:800px){
+    section .content{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    section aside {
+        width: 100%!important;
+    }
+
+    section .content aside:first-child{
+        margin-bottom: 30px;
+    }
+}

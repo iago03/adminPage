@@ -1,5 +1,6 @@
 label{
     margin-bottom: 7px;
+    display: block;
 }
 
 button{
@@ -16,4 +17,14 @@ button{
     justify-content: space-around;
     align-items: center;
     padding-top: 50px;
+}
+
+.img{
+    margin: 100px auto;
+    width: 200px;
+    height: 200px;
+}
+
+.error{
+    color: red;
 }

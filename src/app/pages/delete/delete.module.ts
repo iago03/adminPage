@@ -4,18 +4,20 @@ import { CommonModule } from '@angular/common';
 import { DeleteRoutingModule } from './delete-routing.module';
 import { DeleteComponent } from './delete.component';
 import { FormsModule } from '@angular/forms';
-import { CardModule } from '../card/card.module';
+
+import { CardComponent } from '../card/card.component';
 
 
 @NgModule({
   declarations: [
-    DeleteComponent
+    DeleteComponent,
+    CardComponent
   ],
   imports: [
     CommonModule,
     DeleteRoutingModule,
     FormsModule,
-    CardModule
+
   ]
 })
 export class DeleteModule { }

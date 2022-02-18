@@ -85,6 +85,10 @@ textarea{
     margin: 10px 0px 20px;
 }
 
+label{
+    display: block;
+}
+
 /* input Style */
 
 /* respons */

@@ -1,6 +1,11 @@
 <main>
     <div class="form-group">
-        <label for="name">პროდუქტის სახელი</label>
+        <label 
+        *ngIf="itemNameNotFound; else nameError"
+        for="name">პროდუქტის სახელი</label>
+        <ng-template #nameError>
+            <label class="error">პროდუქტის სახელი არასწორია</label>
+        </ng-template>
         <input
         [ngClass]="{'red':itemNameStatus}" 
         [(ngModel)]="itemName"
@@ -15,8 +20,19 @@
     *ngIf="itemInfoAreaStatus"
     class="card-area">
         <app-card
-        *ngFor="let item of delateItemsArr" [img]="item"
+        *ngIf="!loading; else loadingBlock"
+        (changeitemInfoAreaStatus)="changeitemInfoAreaStatusFunc($event)"
+        [cardItem]="deleteRequestItemInfo"
+        [id]="deleteId"
         ></app-card>
+
+        <ng-template #loadingBlock>
+            <div class="img">
+                <img src="../../../assets/svg/Spin-1s-200px.svg" alt="">
+            </div>
+        </ng-template>
     </section>
+
+
     
 </main>

@@ -1,6 +1,11 @@
 <main>
     <div class="form-group">
-        <label for="name">პროდუქტის სახელი</label>
+        <label 
+        *ngIf="itemNameNotFound; else nameError"
+        for="name">პროდუქტის სახელი</label>
+        <ng-template #nameError>
+            <label class="error">პროდუქტის სახელი არასწორია</label>
+        </ng-template>
         <input
         [ngClass]="{'red':itemNameStatus}" 
         [(ngModel)]="itemName"
@@ -11,24 +16,32 @@
     (click)="render()"
     type="button" class="btn btn-outline-primary">მოძებნა</button>
 
-    <section class="card-area">
+    <section
+    *ngIf="itemInfoAreaStatus"
+    class="card-area">
         <app-item-info-component
-        *ngIf="itemInfoAreaStatus"
+        *ngIf="loadingStatus; else loadingBlock"
         [itemInfo]="putRequestItemInfo"
         [itemInfoInputStatus]="inputStatus"
         ></app-item-info-component>
 
-        <article class="button-area">
+        <article 
+        *ngIf="loadingStatus"
+        class="button-area">
             <button
             (click)="changeInputStatus()"
-            *ngIf="itemInfoAreaStatus"
             type="button" class="btn btn-outline-warning">შეცვლა</button>
     
             <button
             (click)="putRequest()"
-            *ngIf="itemInfoAreaStatus"
             type="button" class="btn btn-outline-success">შენახვა</button>
         </article>
+
+        <ng-template #loadingBlock>
+            <div class="img">
+                <img src="../../../assets/svg/Spin-1s-200px.svg" alt="">
+            </div>
+        </ng-template>
     </section>
     
 </main>

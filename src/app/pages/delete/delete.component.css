@@ -1,11 +1,16 @@
 section{
+    margin-top: 120px;
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
 }
 
 label{
     margin-bottom: 7px;
+}
+
+.error{
+    color: red;
 }
 
 button{
@@ -15,4 +20,9 @@ button{
 
 .red{
     border: 1px solid red;
+}
+
+.img{
+    width: 200px;
+    height: 200px;
 }

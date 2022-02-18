@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { itemInfo } from 'src/app/shared-file/shared-class';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+
 
 @Component({
   selector: 'app-delete',
@@ -8,33 +9,70 @@ import { itemInfo } from 'src/app/shared-file/shared-class';
 })
 export class DeleteComponent implements OnInit {
 
-  constructor() { }
-
-  delateItemsArr:string[] = [
-    "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    "https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80",
-    
-  ];
+  constructor(private angularFireStore:AngularFirestore) { }
 
   itemName:string = "";
   itemNameStatus:boolean = false;
+  loading:boolean = true;
+
+  itemNameNotFound:boolean = true;
 
   ngOnInit(): void {
   }
 
   itemInfoAreaStatus:boolean = false;
 
-  putRequestItemInfo:itemInfo = new itemInfo("","","","","");
+  deleteRequestItemInfo:any;
 
+  // delete request id
+
+  deleteId:any;
+
+  // delete request id
   render(){
     if(this.itemName != ""){
-      console.log(this.itemName);
-      this.itemName = "";
-      this.itemNameStatus = false;
+      this.loading = true;
       this.itemInfoAreaStatus = true;
+
+
+      let iago = this.angularFireStore.collection('iago', ref => ref 
+      .orderBy('Name')
+      .startAt(this.itemName)
+      .limit(1)
+      ).stateChanges()
+      .subscribe((v:any) => {
+
+        if(v[0].payload.doc.data().Name === this.itemName){
+          this.loading = false;
+          this.deleteRequestItemInfo = v[0].payload.doc.data();
+          this.deleteId = v[0].payload.doc.id;
+  
+          this.itemName = "";
+  
+          this.itemNameStatus = false;
+          this.itemNameNotFound = true;
+  
+        }else{
+          this.itemNameStatus = true;
+          this.itemNameNotFound = false;
+          this.itemInfoAreaStatus = false;
+        }        
+      })
+
+      setTimeout(() => {
+        iago.unsubscribe()
+      },2000)
     }else{
       this.itemNameStatus = true;
+    }
+
+    
+  }
+
+  changeitemInfoAreaStatusFunc(event:boolean){
+    this.itemInfoAreaStatus = event;
+    if(!event){
+      this.loading = true;
     }
   }
 

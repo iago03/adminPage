@@ -34,7 +34,9 @@
         <button
         (click)="render()"
         type="button" class="btn btn-outline-primary">შემოწმება</button>
+        
     </section>
+
     <section class="card-info-area">
         <app-item-info-component
         *ngIf="itemInfoAreaStatus"
@@ -45,4 +47,5 @@
     (click)="postRequest()"
     *ngIf="itemInfoAreaStatus"
     type="button" class="btn btn-outline-success">დამატება</button>
+
 </main>

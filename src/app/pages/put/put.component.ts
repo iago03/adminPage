@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { itemInfo } from 'src/app/shared-file/shared-class';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-put',
@@ -8,30 +9,81 @@ import { itemInfo } from 'src/app/shared-file/shared-class';
 })
 export class PutComponent implements OnInit {
 
-  constructor() { }
+  constructor(private angularFireStore:AngularFirestore) { }
 
   itemName:string = "";
   itemNameStatus:boolean = false;
   inputStatus:boolean = false;
+  itemNameNotFound:boolean = true;
+
+  loadingStatus:boolean = false;
 
   ngOnInit(): void {
   }
 
   itemInfoAreaStatus:boolean = false;
 
-  putRequestItemInfo:itemInfo = new itemInfo("iago","https://images.unsplash.com/photo-1508921912186-1d1a45ebb3c1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=687&q=80","200","mshvildi","sadme");
+  putRequestItemInfo:any;
+
+  //put recuest id
+
+    putId:any;
+
+  //put recuest id
 
   render(){
+    
     if(this.itemName != ""){
-      this.itemName = "";
-      this.itemNameStatus = false;
       this.itemInfoAreaStatus = true;
+      this.loadingStatus = false;
+
+      let iago = this.angularFireStore.collection('iago', ref => ref 
+      .orderBy('Name')
+      .startAt(this.itemName)
+      .limit(1)
+      ).stateChanges()
+      .subscribe((v:any) => {
+
+        if(v[0].payload.doc.data().Name === this.itemName){
+          this.loadingStatus = true;
+          this.putRequestItemInfo = v[0].payload.doc.data();
+          this.putId = v[0].payload.doc.id;
+  
+          this.itemName = "";
+  
+          this.itemNameStatus = false;
+          this.itemNameNotFound = true;
+  
+        }else{
+          this.itemNameStatus = true;
+          this.itemNameNotFound = false;
+          this.itemInfoAreaStatus = false;
+        }        
+      })
+
+      setTimeout(() => {
+        iago.unsubscribe()
+      },3000)
     }else{
       this.itemNameStatus = true;
     }
+
+    
   }
 
   putRequest(){
+    this.angularFireStore.collection('iago').doc(this.putId).update({
+      Name: this.putRequestItemInfo.Name,
+      Description: this.putRequestItemInfo.Description,
+      ImgUrl: this.putRequestItemInfo.ImgUrl,
+      Price: this.putRequestItemInfo.Price,
+      Used: this.putRequestItemInfo.Used,
+    }).then(() => {
+      this.alertWithSuccess()
+    });
+    
+   
+
     this.itemInfoAreaStatus = false;
     this.inputStatus = false;
   }
@@ -39,5 +91,11 @@ export class PutComponent implements OnInit {
   changeInputStatus(){
     this.inputStatus = true;
   }
+
+  //alert
+  alertWithSuccess(){  
+		Swal.fire('გმადლობთ...', 'შეცვლა წარმატებით შესრულდა!', 'success');  
+  } 
+  // alert
 
 }

@@ -9,18 +9,20 @@
 <section
 *ngIf="!title"
 class="login">
+
+    <p
+    *ngIf="adminError"
+    >ელ.ფოსტა ან პაროლი არასწორია</p>
     <div class="form-group">
         <label 
-        [ngClass]="{'error':loginNameError}"
-        for="name">სახელი</label>
+        for="name">ელ. ფოსტა</label>
         <input 
-        [(ngModel)]="loginName"
+        [(ngModel)]="loginEmail"
         type="text" class="form-control" id="name">
     </div>
 
     <div class="form-group">
         <label 
-        [ngClass]="{'error':loginPasswordError}"
         for="password">პაროლი</label>
         <input 
         [(ngModel)]="loginPassword"
@@ -30,4 +32,5 @@ class="login">
     <button
     (click)="check()"
     type="button" class="btn btn-outline-dark">შესვლა</button>
+
 </section>
